@@ -15,17 +15,15 @@ server.on('request', function(request, response) {
 	http.request(options, callback).end();
 	
 	function callback(rsp) {
-		var output = callbackName + '(';
+		response.write(callbackName + '(');
 
 		rsp.on('data', function(chunk){
-			output += chunk;
+			console.log(chunk.toString());
+			response.write(chunk.toString());
 		});
 
 		rsp.on('end', function(){
-			output += ')';
-			console.log(output);
-			response.write(output);
-			response.end();
+			response.end(')');
 		});
 	};
 });
